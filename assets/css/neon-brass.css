@@ -1,0 +1,211 @@
+/* ==========================================================================
+   NEON-BRASS design system: components CSS
+   Dark-only. Base: brasshands.com (charcoal, brass orange, steel grey, condensed
+   mono type, hatched panels with corner brackets, red LED readouts).
+   Cyberpunk layer: neon cyan/magenta, glow, scanlines, glitch offsets.
+   Fonts (Google Fonts link in <head>):
+     Chakra Petch 500/600/700 · IBM Plex Sans 400/500/600 (+italic 400) ·
+     JetBrains Mono 400/700 · VT323
+   @page rules only apply to print/PDF; they are ignored on screen.
+   ========================================================================== */
+:root{
+  --bg:#121215; --bg2:#1a1a1f; --bg3:#0a0a0c; --line:#2c2c33;
+  --ink:#d9dde0; --mute:#8d949a; --steel:#adb3b7;
+  --or:#ff6200; --or2:#ff7a2e; --cy:#19f0ff; --mg:#ff2a6d; --led:#ff2b2b;
+  --ye:#ffd400; --bl:#2f6bff; --gr:#39ff88;
+}
+/* dark everywhere, also when a host forces a theme */
+:root, :root[data-theme="light"], :root[data-theme="dark"]{ color-scheme:dark; }
+
+@page{ size:A4; margin:17mm 16mm 19mm 16mm; background:#121215; }
+@page cover{ margin:0; background:#0a0a0c; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; background:var(--bg); color:var(--ink); }
+body{ font-family:'IBM Plex Sans',sans-serif; font-size:9.4pt; line-height:1.48; }
+@media screen{ body{ font-size:16px; line-height:1.55; } .page{ max-width:1100px; margin:0 auto; padding:32px 16px; } }
+p{ margin:0 0 2.4mm; orphans:3; widows:3; }
+b,strong{ color:#fff; font-weight:600; }
+em{ color:var(--steel); }
+a{ color:var(--cy); text-decoration:none; border-bottom:1px dashed rgba(25,240,255,.5); }
+.mono{ font-family:'JetBrains Mono',monospace; }
+.or{ color:var(--or); } .cy{ color:var(--cy); } .mg{ color:var(--mg); } .ye{ color:var(--ye); } .led{ color:var(--led); } .gr{color:var(--gr);} .mu{color:var(--mute);}
+.nrm{ font-family:'JetBrains Mono',monospace; font-size:.86em; color:var(--or2); white-space:nowrap; }
+ul,ol{ margin:0 0 2.4mm; padding-left:5mm; }
+li{ margin:0 0 1mm; }
+ul.sq{ list-style:none; padding-left:0; }
+ul.sq>li{ position:relative; padding-left:5mm; }
+ul.sq>li::before{ content:""; position:absolute; left:0; top:.55em; width:1.6mm; height:1.6mm; background:var(--or); }
+.pb{ break-before:page; }
+.avoid{ break-inside:avoid; }
+
+/* ---------- headings ---------- */
+h1,h2,h3,h4{ font-family:'Chakra Petch',sans-serif; text-transform:uppercase; margin:0; line-height:1.1; letter-spacing:.02em; break-after:avoid; }
+h3{ font-size:12.5pt; color:#fff; margin:4.2mm 0 2.2mm; display:flex; align-items:center; gap:2.5mm; }
+h3 .n{ font-family:'JetBrains Mono',monospace; font-size:8pt; color:#0a0a0c; background:var(--or); padding:.6mm 1.6mm; letter-spacing:0; }
+h4{ font-size:10pt; color:var(--cy); margin:3.5mm 0 1.6mm; letter-spacing:.06em; }
+h4::before{ content:"> "; color:var(--or); font-family:'JetBrains Mono',monospace; }
+
+/* ---------- hatch panel with corner brackets (brasshands signature) ----------
+   markup: <div class="hatch brk"><span class="c3"></span><span class="c4"></span>…</div>
+   orange variant: add class "orx" */
+.hatch{ position:relative; border:0; padding:4mm 5mm;
+  background:repeating-linear-gradient(135deg, rgba(173,179,183,.10) 0 .5mm, transparent .5mm 2.2mm), #18181c; }
+.hatch.orx{ background:repeating-linear-gradient(135deg, rgba(255,98,0,.22) 0 .5mm, transparent .5mm 2.2mm), #1d1410; }
+.brk::before,.brk::after{ content:""; position:absolute; width:3.2mm; height:3.2mm; border:.35mm solid var(--steel); }
+.brk::before{ top:0; left:0; border-right:0; border-bottom:0; }
+.brk::after{ bottom:0; right:0; border-left:0; border-top:0; }
+.brk .c3,.brk .c4{ position:absolute; width:3.2mm; height:3.2mm; border:.35mm solid var(--steel); }
+.brk .c3{ top:0; right:0; border-left:0; border-bottom:0; }
+.brk .c4{ bottom:0; left:0; border-right:0; border-top:0; }
+.orx.brk::before,.orx.brk::after,.orx .c3,.orx .c4{ border-color:var(--or); }
+.dash{ border:0; border-top:.3mm dashed var(--or); margin:3mm 0; }
+.slashes{ font-family:'JetBrains Mono',monospace; color:var(--or); letter-spacing:.3mm; }
+
+/* ---------- labels / chips ---------- */
+.lbl{ font-family:'JetBrains Mono',monospace; font-size:7pt; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); }
+.chip{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:6.8pt; letter-spacing:.08em; text-transform:uppercase; padding:.5mm 1.8mm; border:.25mm solid var(--ye); color:var(--ye); margin:0 1mm 1mm 0; line-height:1.3; }
+.chip.r{ border-color:var(--led); background:var(--led); color:#0a0a0c; }
+.chip.c{ border-color:var(--cy); color:var(--cy); }
+.chip.o{ border-color:var(--or); color:var(--or); }
+.chip.m{ border-color:var(--mg); color:var(--mg); }
+.chip.g{ border-color:var(--steel); color:var(--steel); }
+
+/* ---------- callout boxes: <div class="box res"><span class="tag">Ergebnis</span><p>…</p></div> ---------- */
+.box{ display:flow-root; position:relative; margin:3.2mm 0; padding:3mm 4mm 2.2mm; border:.3mm solid var(--line); background:var(--bg2); break-inside:avoid; }
+.box>.tag{ position:absolute; top:-2.1mm; left:3.5mm; font-family:'JetBrains Mono',monospace; font-size:6.8pt; font-weight:700; letter-spacing:.12em; padding:0 1.6mm; background:var(--bg); text-transform:uppercase; }
+.box p:last-child,.box ul:last-child,.box ol:last-child{ margin-bottom:.6mm; }
+.res{ border-color:var(--cy); background:linear-gradient(90deg, rgba(25,240,255,.08), rgba(25,240,255,.02)); box-shadow:0 0 0 .2mm rgba(25,240,255,.25), 0 0 3mm rgba(25,240,255,.12); }
+.res>.tag{ color:var(--cy); }                                    /* result / key takeaway */
+.merk{ border-color:var(--mg); background:linear-gradient(90deg, rgba(255,42,109,.10), rgba(255,42,109,.02)); }
+.merk>.tag{ color:var(--mg); }                                   /* rule to remember */
+.err{ border-color:var(--led); border-left:1.4mm solid var(--led); background:#1c1012; }
+.err>.tag{ color:var(--led); }                                   /* warning / common mistake */
+.upd{ border-color:var(--ye); border-style:dashed; background:#1a1808; }
+.upd>.tag{ color:var(--ye); }                                    /* patch / change notice */
+.deep{ border-color:#4b4b56; border-style:dotted; }
+.deep>.tag{ color:var(--steel); }                                /* side note / deep dive */
+.fix{ border-color:var(--gr); border-left:1.4mm solid var(--gr); background:#0f1a13; }
+.fix>.tag{ color:var(--gr); }                                    /* review / debug log */
+
+/* ---------- section header ("case file") ---------- */
+.case{ break-before:page; }
+.case-top{ display:flex; justify-content:space-between; align-items:center; border-top:.3mm dashed var(--or); border-bottom:.3mm dashed var(--or); padding:1.2mm 0; margin-bottom:4mm; }
+.case-top .lbl b{ color:var(--or); font-weight:700; }
+.case-title{ display:flex; align-items:stretch; gap:4mm; margin-bottom:4mm; break-after:avoid; }
+.case-id{ background:var(--or); color:#0a0a0c; font-family:'Chakra Petch'; font-weight:700; font-size:22pt; line-height:1; padding:2.5mm 3.5mm; display:flex; flex-direction:column; justify-content:center; min-width:24mm; text-align:center; }
+.case-id small{ font-family:'JetBrains Mono'; font-size:6pt; letter-spacing:.15em; font-weight:700; }
+.case-title h2{ font-size:17pt; color:#fff; align-self:center; }
+.case-title h2 span{ display:block; font-family:'JetBrains Mono'; font-size:7.5pt; color:var(--steel); letter-spacing:.1em; margin-top:1.4mm; text-transform:uppercase; font-weight:400; }
+.pts{ margin-left:auto; align-self:center; text-align:right; font-family:'VT323',monospace; color:var(--led); font-size:26pt; line-height:.9; text-shadow:0 0 2mm rgba(255,43,43,.55); }
+.pts small{ display:block; font-family:'JetBrains Mono'; font-size:6pt; letter-spacing:.15em; color:var(--mute); text-shadow:none; }
+.sv{ margin-bottom:4mm; }
+.sv .lbl{ display:block; color:var(--steel); margin-bottom:1.5mm; }
+.sv p{ color:#c4c9cd; font-size:9.2pt; }
+.q{ border-left:1.2mm solid var(--or); padding:1.6mm 3.5mm; background:#1d1712; margin:2.5mm 0; font-weight:500; color:#fff; break-inside:avoid; }
+.q .lbl{ color:var(--or); display:block; margin-bottom:.6mm; }
+
+/* ---------- part opener ---------- */
+.part{ break-before:page; height:250mm; position:relative; display:flex; flex-direction:column; justify-content:center; }
+.part .big{ font-family:'Chakra Petch'; font-weight:700; font-size:120pt; line-height:.8; color:transparent; -webkit-text-stroke:.5mm var(--or); }
+.part h1{ font-size:34pt; color:#fff; margin:6mm 0 3mm; }
+.part .sub{ font-family:'JetBrains Mono'; font-size:9pt; color:var(--steel); letter-spacing:.1em; text-transform:uppercase; }
+.ledpanel{ background:#0b0b0d; border:.3mm solid #26262c; padding:4mm 6mm; display:flex; justify-content:space-between; align-items:center; margin-top:8mm; }
+.ledpanel .d{ font-family:'VT323'; color:var(--led); font-size:30pt; line-height:1; text-shadow:0 0 2.5mm rgba(255,43,43,.6); }
+.ledpanel .t{ font-family:'JetBrains Mono'; color:var(--led); font-size:8pt; letter-spacing:.12em; text-transform:uppercase; text-shadow:0 0 1.5mm rgba(255,43,43,.5); line-height:1.6; }
+
+/* ---------- tables ---------- */
+table{ width:100%; border-collapse:collapse; margin:2.5mm 0 3.5mm; font-size:8.5pt; }
+tr{ break-inside:avoid; } thead{ display:table-header-group; }
+th{ font-family:'JetBrains Mono'; font-size:7pt; letter-spacing:.1em; text-transform:uppercase; color:#0a0a0c; background:var(--steel); text-align:left; padding:1.4mm 2mm; font-weight:700; }
+td{ border-bottom:.25mm solid var(--line); padding:1.5mm 2mm; vertical-align:top; }
+tr:nth-child(even) td{ background:rgba(255,255,255,.02); }
+td.k{ font-family:'JetBrains Mono'; color:var(--or); font-size:7.8pt; white-space:nowrap; }
+
+/* ---------- figures (inline SVG diagrams) ---------- */
+.fig{ margin:3.5mm 0; break-inside:avoid; background:var(--bg3); border:.3mm solid #24242a; padding:3mm; }
+.fig svg{ display:block; width:100%; height:auto; }
+.fig .cap{ font-family:'JetBrains Mono'; font-size:6.8pt; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); margin-top:2mm; }
+.fig .cap b{ color:var(--or); }
+svg text{ font-family:'IBM Plex Sans'; }
+svg .m{ font-family:'JetBrains Mono'; }
+svg .h{ font-family:'Chakra Petch'; font-weight:700; }
+
+.two{ display:grid; grid-template-columns:1fr 1fr; gap:4mm; }
+.three{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:3mm; }
+@media screen and (max-width:700px){ .two,.three{ grid-template-columns:1fr; } .case-title{ flex-wrap:wrap; } }
+.steps{ counter-reset:st; list-style:none; padding:0; }
+.steps>li{ counter-increment:st; position:relative; padding-left:9mm; margin-bottom:1.8mm; }
+.steps>li::before{ content:counter(st,decimal-leading-zero); position:absolute; left:0; top:.2mm; font-family:'JetBrains Mono'; font-size:7pt; font-weight:700; color:#0a0a0c; background:var(--cy); padding:.3mm 1.1mm; }
+
+/* ---------- table of contents ---------- */
+.toc h1{ font-size:26pt; color:#fff; margin-bottom:2mm; }
+.toc .grp{ margin-top:3.2mm; font-family:'Chakra Petch'; font-weight:700; font-size:10.5pt; color:var(--or); text-transform:uppercase; letter-spacing:.05em; border-bottom:.3mm dashed var(--or); padding-bottom:1mm; margin-bottom:1mm; display:flex; justify-content:space-between; }
+.toc .row{ display:flex; align-items:baseline; gap:2mm; font-size:8.5pt; padding:.15mm 0; line-height:1.4; }
+.toc .row .id{ font-family:'JetBrains Mono'; font-size:7.2pt; color:var(--cy); min-width:11mm; }
+.toc .row .dots{ flex:1; border-bottom:.25mm dotted #3a3a44; transform:translateY(-.8mm); }
+.toc .row .pg{ font-family:'JetBrains Mono'; font-size:8pt; color:var(--or); min-width:7mm; text-align:right; }
+.fid{ font-family:'JetBrains Mono'; font-size:5pt; color:#3b3b44; letter-spacing:.1em; }   /* invisible-ish page marker for PDF post-processing */
+
+/* ---------- cover / hero (A4 full bleed; on the web use height:auto/min-height:100vh) ---------- */
+.cover{ page:cover; width:210mm; height:296.5mm; overflow:hidden; position:relative; background:#0a0a0c; break-after:page; }
+.cover .grid{ position:absolute; inset:0; background:
+   repeating-linear-gradient(0deg, rgba(25,240,255,.045) 0 .25mm, transparent .25mm 10mm),
+   repeating-linear-gradient(90deg, rgba(25,240,255,.045) 0 .25mm, transparent .25mm 10mm); }
+.cover .scan{ position:absolute; inset:0; background:repeating-linear-gradient(0deg, rgba(0,0,0,.28) 0 .35mm, transparent .35mm .9mm); pointer-events:none; }
+.nav{ position:absolute; top:0; left:0; right:0; height:24mm; display:flex; align-items:center; justify-content:space-between; padding:0 16mm; background:#17171a; }
+.nav .l{ font-family:'Chakra Petch'; font-weight:700; color:var(--or); font-size:12pt; letter-spacing:.06em; }
+.logo{ position:absolute; left:50%; top:0; transform:translateX(-50%); width:26mm; height:26mm; background:var(--or); display:flex; align-items:center; justify-content:center; }
+.ticker{ position:absolute; top:28mm; left:0; right:0; border-top:.35mm dashed var(--or); border-bottom:.35mm dashed var(--or); height:11mm; display:flex; align-items:center; justify-content:space-around; font-family:'Chakra Petch'; font-weight:600; font-size:12pt; color:var(--steel); letter-spacing:.08em; }
+.ticker i{ font-style:normal; color:var(--or); font-size:9pt; }
+
+/* glitch title: three stacked copies (cyan +x, magenta -x, white on top) */
+.glitch{ position:relative; font-family:'Chakra Petch'; font-weight:700; line-height:1; }
+.glitch span{ position:absolute; left:0; top:0; }
+.glitch .g1{ color:var(--cy); opacity:.75; transform:translate(.9mm,.3mm); }
+.glitch .g2{ color:var(--mg); opacity:.75; transform:translate(-.9mm,-.3mm); }
+.glitch .g3{ position:relative; color:#f2f4f5; }
+
+/* ---------- extras for Verkehrssysteme study guide ---------- */
+.fx{ margin:3mm 0; padding:2.6mm 4mm; background:#0a0a0c; border:.3mm solid #26262c; border-left:1.4mm solid var(--cy); break-inside:avoid; }
+.fx .lbl{ display:block; color:var(--cy); margin-bottom:1mm; }
+.fx .eq{ font-family:'JetBrains Mono',monospace; font-size:9.6pt; color:#fff; letter-spacing:.02em; }
+.fx .eq .v{ color:var(--ye); }
+.fx small{ display:block; color:var(--mute); font-size:7.6pt; margin-top:1mm; }
+.ex{ margin:3.2mm 0; break-inside:avoid; }
+.ex .lbl{ display:block; color:var(--ye); margin-bottom:1.4mm; }
+.ex p, .ex li{ font-size:9pt; }
+.ex .calc{ font-family:'JetBrains Mono',monospace; font-size:8.4pt; color:var(--cy); display:block; margin:.6mm 0 .6mm 3mm; }
+.mini{ font-size:8.4pt; }
+.card{ border:.3mm solid var(--line); background:var(--bg2); padding:2.6mm 3.2mm; break-inside:avoid; }
+.card h5{ font-family:'Chakra Petch'; font-weight:700; text-transform:uppercase; font-size:10pt; margin:0 0 1.4mm; letter-spacing:.04em; }
+.card .pro{ color:var(--gr); font-family:'JetBrains Mono'; font-size:6.8pt; letter-spacing:.12em; display:block; margin:1mm 0 .6mm; }
+.card .con{ color:var(--led); font-family:'JetBrains Mono'; font-size:6.8pt; letter-spacing:.12em; display:block; margin:1.4mm 0 .6mm; }
+.card ul{ margin:0; padding-left:4mm; font-size:8.4pt; }
+.card li{ margin:0 0 .4mm; }
+.lead{ font-size:10pt; color:#e8ebed; }
+.twocol{ column-count:2; column-gap:6mm; }
+.twocol li{ break-inside:avoid; }
+.kv td:first-child{ width:34%; }
+table.cmp td{ font-size:8.3pt; }
+.qa{ margin:0 0 1.5mm; break-inside:avoid; }
+.qa .qn{ font-family:'JetBrains Mono'; color:var(--or); font-weight:700; font-size:8pt; margin-right:1.6mm; }
+.qa .pt{ font-family:'JetBrains Mono'; color:var(--mute); font-size:7pt; }
+.ans{ margin:0 0 2.4mm; padding-left:3mm; border-left:.5mm solid #33333b; break-inside:avoid; font-size:8.8pt; }
+.ans .qn{ font-family:'JetBrains Mono'; color:var(--cy); font-weight:700; font-size:8pt; margin-right:1.6mm; }
+.src{ font-size:7.8pt; color:var(--mute); }
+.src li{ margin-bottom:.4mm; }
+.howto .step{ display:flex; gap:3mm; margin-bottom:2.2mm; }
+.howto .step b.n{ font-family:'VT323'; color:var(--led); font-size:20pt; line-height:.9; min-width:8mm; text-shadow:0 0 1.5mm rgba(255,43,43,.5); }
+.legend span{ display:inline-block; margin-right:3mm; font-family:'JetBrains Mono'; font-size:6.8pt; letter-spacing:.08em; text-transform:uppercase; }
+.legend i{ display:inline-block; width:3mm; height:3mm; margin-right:1mm; vertical-align:-.4mm; }
+.toc h1{ margin-bottom:0; }
+.toc .grp{ margin-top:2.2mm; margin-bottom:.6mm; }
+.toc .row{ line-height:1.32; padding:0; }
+.part h1{ font-size:32pt; }
+.rt{ font-size:7.6pt; letter-spacing:.4mm; color:var(--or); white-space:nowrap; }
+.rt i{ font-style:normal; color:#3a3a44; }
+table.heat td{ text-align:center; padding:1.2mm 1mm; }
+table.heat td.k{ text-align:left; }
+table.heat th{ text-align:center; } table.heat th:first-child{ text-align:left; }
+.case-id{ flex-shrink:0; white-space:nowrap; }
+.pts{ flex-shrink:0; white-space:nowrap; }
