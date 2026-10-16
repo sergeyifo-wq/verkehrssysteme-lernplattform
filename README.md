@@ -9,7 +9,7 @@ Selbstlern-Website zur Lehrveranstaltung **Grundlagen der Verkehrssysteme** (WS 
 | Bereich | Inhalt |
 |---|---|
 | Lernen | 35 Kapitel (Teile A–G) im **Detail**- oder **Kompakt**-Modus, mit Abbildungen, Rechenbeispielen und Check-up-Fragen pro Kapitel |
-| Videos | 7 vertonte Erklärvideos (ca. 17 min) mit Untertiteln, Kapitelmarken und klickbarem Transkript |
+| Videos | 7 Erklärvideos (ca. 16 min) mit neuronaler Sprachausgabe, Untertiteln, Kapitelmarken und klickbarem Transkript |
 | Test | Schnelltest, Kapitel-Test, Fehler-Training und 60-Minuten-Klausur-Simulation (100 Punkte, Note nach Notenschlüssel) |
 | Glossar | 125 Fachbegriffe mit Suche und A–Z-Filter |
 | Karteikarten | 166 Karten mit 3D-Flip-Animation und Leitner-System |
