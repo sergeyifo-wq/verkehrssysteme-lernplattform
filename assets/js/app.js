@@ -484,10 +484,10 @@
       }
       const sec = secById(cur.s), lt = S.get('leitner', {});
       $('#stage').innerHTML = `<div class="mono muted" style="text-align:center;font-size:12px;margin-top:6px">KARTE ${sessionN - queue.length}/${sessionN} · BOX ${lt[cur.id] || 1}</div>
-        <div class="fc-wrap deal-in" id="fw"><div class="fc" id="fc" tabindex="0" role="button" aria-label="Karte umdrehen">
+        <div class="fc-wrap deal-in" id="fw"><div class="fc-move"><div class="fc" id="fc" tabindex="0" role="button" aria-label="Karte umdrehen">
           <div class="fc-face fc-front"><span class="tag">[ ${esc(cur.tag)} ]</span><div class="t">${esc(cur.f)}</div><span class="src">${cur.s}</span><span class="hint">KLICK = UMDREHEN</span></div>
           <div class="fc-face fc-back"><span class="tag">[ ANTWORT ]</span><div class="t">${esc(cur.b)}</div><span class="src">→ ${cur.s} ${esc(sec ? sec.title : '')}</span></div>
-        </div><div class="stack-shadow"></div><div class="stack-shadow s2"></div></div>
+        </div></div><div class="stack-shadow"></div><div class="stack-shadow s2"></div></div>
         <div class="fc-actions"><button class="btn red" id="no">← Nochmal</button><button class="btn ghost" id="flip">⟲ Umdrehen</button><button class="btn gr" id="yes">Gewusst →</button></div>`;
       const fc = $('#fc');
       const flip = () => fc.classList.toggle('flip');
@@ -569,7 +569,11 @@
     $$('[data-tool]').forEach(b => b.addEventListener('click', () => { history.replaceState(null, '', '#/labor/' + b.dataset.tool); renderLab(b.dataset.tool); }));
     const el = $('#tool');
     el.innerHTML = `<div class="case-top"><span class="lbl">LAB // <b>${t.id.toUpperCase()}</b></span><span class="lbl">KAPITEL ${t.sec}</span></div><h2 style="font-family:'Chakra Petch';text-transform:uppercase;color:#fff;margin:0 0 6px;font-size:26px">${esc(t.title)}</h2><p class="muted" style="margin-top:0">${t.desc} <a href="#/lernen/${t.sec}" class="mono" style="font-size:12px">→ ${t.sec}</a></p><div id="toolBody"></div>`;
-    t.render($('#toolBody'), { toast, shuffle, esc, onLeave });
+    const body = $('#toolBody');
+    t.render(body, { toast, shuffle, esc, onLeave });
+    // filled part of each range track (also after presets/resets that set .value directly)
+    const paint = () => $$('input[type=range]', body).forEach(r => { const mn = +r.min || 0, mx = +r.max || 100; r.style.setProperty('--p', ((r.value - mn) / (mx - mn) * 100) + '%'); });
+    body.addEventListener('input', paint); body.addEventListener('change', paint); body.addEventListener('click', paint); paint();
   }
 
   route();

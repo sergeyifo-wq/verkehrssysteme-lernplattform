@@ -6,7 +6,7 @@
   const f = (n, d = 1) => Number(n).toLocaleString('de-AT', { minimumFractionDigits: d, maximumFractionDigits: d });
   const f0 = n => Number(n).toLocaleString('de-AT', { maximumFractionDigits: 0 });
   const C = { or: '#ff6200', cy: '#19f0ff', mg: '#ff2a6d', ye: '#ffd400', gr: '#39ff88', led: '#ff2b2b', bl: '#2f6bff', st: '#adb3b7', mu: '#8d949a', line: '#2c2c33' };
-  const slider = (id, label, min, max, step, val, unit = '') => `<label class="f" for="${id}">${label}: <span class="cy" id="${id}V">${val}</span> ${unit}</label><input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${val}">`;
+  const slider = (id, label, min, max, step, val, unit = '') => `<div class="sl"><div class="sl-head"><label for="${id}">${label}</label><span class="sl-val"><span class="cy" id="${id}V">${val}</span>${unit ? ' <small>' + unit + '</small>' : ''}</span></div><input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${val}"></div>`;
   const num = (id, label, val, unit = '') => `<label class="f" for="${id}">${label}${unit ? ' [' + unit + ']' : ''}</label><input class="input" type="number" id="${id}" value="${val}" step="any" min="0">`;
   const val = (el, id) => parseFloat($('#' + id, el).value) || 0;
   const tools = [];
@@ -205,7 +205,7 @@
     desc: 'Lege das Anforderungsprofil eines Gutes fest. Berechnet wird D = Σ|A − W| zu den Wertigkeitsprofilen (Werte nach Folie 36). Nicht relevante Kriterien abwählen.',
     render(el) {
       el.innerHTML = `<div class="lab-grid"><div class="panel"><div class="lbl">VORLAGEN</div><div class="btn-row">${Object.keys(PRESET).map(p => `<button class="btn ghost" data-p="${p}" style="padding:5px 9px;font-size:12px">${p}</button>`).join('')}</div>
-        ${CRIT.map((c, i) => `<div style="display:grid;grid-template-columns:22px 1fr;gap:6px;align-items:end"><input type="checkbox" id="u${i}" ${i < 3 ? 'checked' : ''} aria-label="${c} berücksichtigen" style="accent-color:#ff6200;margin-bottom:10px">${slider('a' + i, c, 0, 1, .01, [.9, .2, .5, .6, .6, .7, .5][i])}</div>`).join('')}</div>
+        ${CRIT.map((c, i) => `<div class="sl-row"><input type="checkbox" class="sl-use" id="u${i}" ${i < 3 ? 'checked' : ''} aria-label="${c} berücksichtigen" title="Kriterium berücksichtigen">${slider('a' + i, c, 0, 1, .01, [.9, .2, .5, .6, .6, .7, .5][i])}</div>`).join('')}</div>
         <div><svg class="lab-svg" id="svg" viewBox="0 0 600 340"></svg><div class="panel" style="margin-top:12px" id="rank"></div></div></div>`;
       const draw = () => {
         const use = CRIT.map((_, i) => $('#u' + i, el).checked), A = CRIT.map((_, i) => +$('#a' + i, el).value);
